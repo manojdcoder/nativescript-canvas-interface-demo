@@ -1,7 +1,11 @@
-import {Page, WebView, Image, GridLayout, ImageFormat} from 'ui';
-import {screen} from 'platform';
+import { Page } from 'ui/page';
+import { WebView } from 'ui/web-view';
+import { Image } from 'ui/image';
+import { GridLayout } from 'ui/layouts/grid-layout';
+
+import { screen } from 'platform';
 import observableModule = require("data/observable");
-import {path, knownFolders} from 'file-system';
+import { path, knownFolders } from 'file-system';
 var _ = require('lodash');
 var nsCanvasInterfaceModule = require('nativescript-canvas-interface');
 var oNSCanvasInterface;
@@ -39,10 +43,10 @@ function initCanvasInterface(webView: WebView) {
  */
 function setBindingContext() {
     var context = new observableModule.Observable();
-    context.set('brightness', 0); 
-    
+    context.set('brightness', 0);
+
     // Adjusting image brightness, once the brightness slider position is changed.
-    context.on('propertyChange', _.debounce(function(data){
+    context.on('propertyChange', _.debounce(function (data) {
         var brightnessValue = data.object.get('brightness');
         setBrightness(brightnessValue);
     }, 100));
@@ -52,18 +56,18 @@ function setBindingContext() {
 /**
  * Performs image manipulation on canvas in webview, and renders the returned image in Image element.
  */
-function performCanvasMainpulation(fnName: string, args?: any[]){
+function performCanvasMainpulation(fnName: string, args?: any[]) {
     imageView.animate({
         opacity: 0.5,
         duration: 150
     });
-    oNSCanvasInterface.createImage(fnName, args).then(function(result) {
+    oNSCanvasInterface.createImage(fnName, args).then(function (result) {
         imageView.imageSource = result.image;
         imageView.animate({
             opacity: 1,
             duration: 150
         });
-    }, function(error){
+    }, function (error) {
         console.log('error', error);
     });
 }
@@ -78,7 +82,7 @@ function setBrightness(value) {
 /**
  * Resets brightness on reset image operation.
  */
-function resetBrightness(){
+function resetBrightness() {
     page.bindingContext.set('brightness', 0);
 }
 

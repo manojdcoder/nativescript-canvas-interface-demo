@@ -2,16 +2,17 @@
   <Page.actionBar>
     <ActionBar title="Nativescript Canvas Inteface Demo"/>
   </Page.actionBar>
-  <StackLayout>
-    <WebView id="webView" src="~/www/index.html" visibility="collapse"></WebView>
-    <GridLayout id="container" rows="auto" columns="*">
-        <Image id="img" src="~/road-nature.jpg"/>    
-    </GridLayout>
-    <GridLayout rows="auto" columns="150, *" style="padding: 5 10">
+  <ScrollView>
+    <StackLayout>
+      <WebView id="webView" src="~/www/index.html" visibility="collapse"></WebView>
+      <GridLayout id="container" rows="auto" columns="*">
+        <Image id="img" src="~/road-nature.jpg"/>
+      </GridLayout>
+      <GridLayout rows="auto" columns="150, *" style="padding: 5 10">
         <Label text="Brightness" style="font-weight: bold; font-size: 16;"/>
-        <Slider col="1" minValue="-100" maxValue="100" value="{{brightness}}" />    
-    </GridLayout>
-    <GridLayout rows="auto, auto, auto, auto" columns="*, *" >
+        <Slider col="1" minValue="-100" maxValue="100" value="{{brightness}}" />
+      </GridLayout>
+      <GridLayout rows="auto, auto, auto, auto" columns="*, *">
         <Button cssClass="btn" text="Vintage" id="vintage" tap="setPreset" />
         <Button cssClass="btn" col="1" text="Sunrise" id="sunrise" tap="setPreset" />
         <Button cssClass="btn" row="1" col="0" text="Cross Process" id="crossProcess" tap="setPreset" />
@@ -20,7 +21,8 @@
         <Button cssClass="btn" row="2" col="1" text="Concentrate" id="concentrate" tap="setPreset" />
         <!--<Button cssClass="btn btn-warning" row="3" col="0" text="Reset" tap="resetImage" />-->
         <!--<Button cssClass="btn btn-success" row="3" col="1" text="Download(WIP)" tap="downloadImage" />-->
-    </GridLayout>
-    <Button cssClass="btn btn-warning" row="3" col="0" text="Reset" tap="resetImage" />
-  </StackLayout>
+      </GridLayout>
+      <Button cssClass="btn btn-warning" row="3" col="0" text="Reset" tap="resetImage" />
+    </StackLayout>
+  </ScrollView>
 </Page>

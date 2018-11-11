@@ -1,5 +1,5 @@
-@import {url('~/common.css')};
+@import url('~/common.css');
 
-.btn{
+.btn {
     width: 120;
 }
