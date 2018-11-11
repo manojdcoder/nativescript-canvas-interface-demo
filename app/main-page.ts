@@ -2,6 +2,7 @@ import { Page } from 'ui/page';
 import { WebView } from 'ui/web-view';
 import { Image } from 'ui/image';
 import { GridLayout } from 'ui/layouts/grid-layout';
+import { fromFile } from 'tns-core-modules/image-source';
 
 import { screen } from 'platform';
 import observableModule = require("data/observable");
@@ -44,11 +45,13 @@ function initCanvasInterface(webView: WebView) {
 function setBindingContext() {
     var context = new observableModule.Observable();
     context.set('brightness', 0);
-
+    context.set('imageSource', fromFile("~/road-nature.jpg"))
     // Adjusting image brightness, once the brightness slider position is changed.
     context.on('propertyChange', _.debounce(function (data) {
-        var brightnessValue = data.object.get('brightness');
-        setBrightness(brightnessValue);
+        if (data.propertyName === "brightness") {
+            var brightnessValue = data.object.get('brightness');
+            setBrightness(brightnessValue);
+        }
     }, 100));
     page.bindingContext = context;
 }
@@ -62,7 +65,7 @@ function performCanvasMainpulation(fnName: string, args?: any[]) {
         duration: 150
     });
     oNSCanvasInterface.createImage(fnName, args).then(function (result) {
-        imageView.imageSource = result.image;
+        page.bindingContext.set("imageSource", result.image);
         imageView.animate({
             opacity: 1,
             duration: 150
